@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="author" content="032001203杜瑞学">
+        <meta name="description" content="A page for test">
+        <title>西二前端三轮考核_Vue版</title>
+        <link rel="stylesheet" href="styles/style.css">
+    </head>
+    <body>
+        <div class="wrap">
+            <div class="wrapbox">
+                <p>1.只使用了极为基础的vue语法</p><br>
+                <p>2.试了一下localstorage保存</p><br>
+                <p>3.保留核心功能，删去日历名言</p><br>
+                <p>4.输入验证是否为空，alert一下</p><br>
+                <p>5.排除字数多时的CSS溢出问题</p>
+                <button>关闭</button>     
+            </div>
+        </div>
+        <!-- ! 以上为遮罩层-->
+        <div id="todolist">
+            <div :class="{'wrap':true,'showToggle':toggle}">
+                <div class="wrapbox">
+                    <form>
+                        标题：<input type="text" autocomplete="off" v-model="cache.headcache" maxlength="20" placeholder="20个字"><br>
+                        <textarea v-model="cache.detailcache" placeholder="在此补充详细目标，不限字数（其实是懒）" rows="5" cols="50"></textarea><br>
+                        <button type="button" @click="addItem" v-show="statetoggle">完成</button>
+                        <button type="button" @click="saveModify(modifyItem)" v-show="!statetoggle">保存修改</button>
+                        <button type="button" @click="cancelAction">取消</button>
+                    </form>
+                </div>
+            </div>
+            <nav>
+                <div class="w2logo"><a href="https://www.west2online.com/"><img src="resources/w2logo.png"></a></div>
+                <div class="actionbar">
+                        <button @click="toggle=false">新建待办</button>
+                        <button @click="savetolocal" id="saveto">存至本地</button>
+                </div>
+            </nav>
+           
+            <div class="list" v-for="item in itemList">
+                <div class="fund">
+                    <div style="width:48vw;text-align: center;">
+                        <h2>{{ item.head }}</h2>
+                        <p>{{ item.detail}}</p><br>
+                    </div>
+                    <div class="bottombar">
+                        <button @click="itemList.splice(itemList.indexOf(item),1)">移除</button>
+                        <button @click="modifyAction(itemList.indexOf(item))">修改</button>
+                        <button>完成</button>
+                        <button>置顶</button>
+                    </div>
+                </div>
+            </div>
+            <div class="gostudy" v-show="itemList.length==0">
+                <img src="resources/mice.png">
+                <p>现在就<i>新建待办</i>开始学习!</p>
+            </div>    
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="scripts/main.js"></script>
+    </body>
+</html>
