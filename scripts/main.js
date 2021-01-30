@@ -4,13 +4,14 @@ document.querySelector(".wrap div button").addEventListener("click",function() {
 let storage = window.localStorage;
 window.onbeforeunload=function() { 
     document.querySelector("#saveto").click();
-    return 0
 };
 new Vue({
     el:"#todolist",
     data:{
         toggle:true,
         statetoggle:true,
+        selectMode:false,
+        allSelect:false,
         cache:{
             headcache:'',
             detailcache:''
@@ -87,6 +88,38 @@ new Vue({
                 'checked':cache.checked,
                 'finished':cache.finished
             });
+        },
+        selectAction:function(index) {
+            if(this.selectMode==true) {
+                if(this.itemList[index].checked==true) {
+                    this.itemList[index].checked=false;
+                } else {
+                    this.itemList[index].checked=true;
+                }
+                
+            }
+        },
+        selectAll:function() {
+            this.itemList.forEach(element => {
+                element.checked=true;
+            });
+            this.allSelect=true;
+        },
+        selectNone:function() {
+            this.itemList.forEach(element => {
+                element.checked=false;
+            });
+            this.allSelect=false;
+        },
+        cancelSelectAll:function() {
+            this.itemList.forEach(element => {
+                element.checked=false;
+            });
+            this.selectMode=false;
+        },
+        removeSelect:function() {
+            this.itemList=this.itemList.filter(ele => ele.checked==false)
+            this.allSelect=false;
         }
     }
 })

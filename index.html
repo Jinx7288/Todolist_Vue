@@ -34,18 +34,23 @@
             <nav>
                 <div class="w2logo"><a href="https://www.west2online.com/"><img src="resources/w2logo.png"></a></div>
                 <div class="actionbar">
-                        <button @click="toggle=false">新建待办</button>
-                        <button @click="savetolocal" id="saveto">存至本地</button>
+                        <button @click="toggle=false" v-show="!selectMode">新建待办</button>
+                        <button @click="selectMode=true" v-show="!selectMode">多选移除</button>
+                        <button @click="savetolocal" id="saveto" v-show="!selectMode">存至本地</button>
+                        <button v-show="selectMode" @click="removeSelect">移除选中</button>
+                        <button v-if="selectMode&&!allSelect" @click="selectAll">全选</button>
+                        <button v-if="selectMode&&allSelect" @click="selectNone">全不选</button>
+                        <button v-show="selectMode" @click="cancelSelectAll">放弃移除</button>
                 </div>
             </nav>
            
             <div class="list" >
-                <div :class="{'fund':true,'finished':item.finished}" v-for="item in itemList">
+                <div :class="{'fund':true,'finished':item.finished,'checked':item.checked}" v-for="item in itemList" @click="selectAction(itemList.indexOf(item))">
                     <div style="width:48vw;text-align: center;">
                         <h2>{{ item.head }}</h2>
                         <p>{{ item.detail}}</p><br>
                     </div>
-                    <div class="bottombar">
+                    <div class="bottombar" v-if="!selectMode">
                         <button @click="itemList.splice(itemList.indexOf(item),1)">移除</button>
                         <button @click="modifyAction(itemList.indexOf(item))">修改</button>
                         <button @click="markFin(itemList.indexOf(item))" v-if="!item.finished">完成</button>
