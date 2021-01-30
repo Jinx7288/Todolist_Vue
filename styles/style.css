@@ -6,8 +6,11 @@ body {
 nav {
     margin:0px;
     padding:10px 20px;
-    background-color:#ddddfc;
+    background-color:#ccffffde;
     border-bottom: 0.5px solid #333333;
+    width: 98%;
+    position: fixed;
+    top:-6px;
 }
 nav div {
     margin:auto;
@@ -24,6 +27,10 @@ nav div {
     background-color: #333333;
     width:60px;
     outline: none;
+    cursor: pointer;
+}
+.list {
+    margin-top: 15vh;
 }
 .actionbar {
     position: relative;
@@ -117,7 +124,7 @@ input[type="checkbox"] {
     height:20px;
 }
 .fund {
-    margin:20px auto;
+    margin:15px auto;
     padding:10px;
     border:0.5px solid rgb(240, 161, 161);
     border-radius: 20px;
@@ -127,6 +134,13 @@ input[type="checkbox"] {
 }
 .fund:hover {
     box-shadow:0px 0px 5px 5px rgb(247, 187, 215);
+}
+.finished {
+    background-color: rgb(169, 245, 220);
+    border: 0.5px solid rgb(93, 196, 161);
+}
+.finished:hover {
+    box-shadow: aquamarine 0px 0px 5px 5px;
 }
 .fund img {
     float: right;

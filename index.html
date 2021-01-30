@@ -39,8 +39,8 @@
                 </div>
             </nav>
            
-            <div class="list" v-for="item in itemList">
-                <div class="fund">
+            <div class="list" >
+                <div :class="{'fund':true,'finished':item.finished}" v-for="item in itemList">
                     <div style="width:48vw;text-align: center;">
                         <h2>{{ item.head }}</h2>
                         <p>{{ item.detail}}</p><br>
@@ -48,8 +48,8 @@
                     <div class="bottombar">
                         <button @click="itemList.splice(itemList.indexOf(item),1)">移除</button>
                         <button @click="modifyAction(itemList.indexOf(item))">修改</button>
-                        <button>完成</button>
-                        <button>置顶</button>
+                        <button @click="markFin(itemList.indexOf(item))" v-if="!item.finished">完成</button>
+                        <button @click="unmarkFin(itemList.indexOf(item))" v-if="item.finished">取消完成</button>
                     </div>
                 </div>
             </div>

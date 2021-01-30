@@ -4,7 +4,6 @@ document.querySelector(".wrap div button").addEventListener("click",function() {
 let storage = window.localStorage;
 window.onbeforeunload=function() { 
     document.querySelector("#saveto").click();
-    alert("    ");
     return 0
 };
 new Vue({
@@ -31,7 +30,8 @@ new Vue({
                 this.itemList.push({
                     'head':this.cache.headcache,
                     'detail':this.cache.detailcache,
-                    'checked':false
+                    'checked':false,
+                    'finished':false
                 });
                 this.cache.headcache='';
                 this.cache.detailcache='';
@@ -67,6 +67,26 @@ new Vue({
         savetolocal:function() {
             storage.setItem("items",JSON.stringify(this.itemList));
             alert("已保存！")
+        },
+        markFin:function(index) {
+            this.itemList[index].finished=true;
+            let cache=this.itemList.splice(index,1)[0];
+            this.itemList.push({
+                'head':cache.head,
+                'detail':cache.detail,
+                'checked':cache.checked,
+                'finished':cache.finished
+            });
+        },
+        unmarkFin:function(index) {
+            this.itemList[index].finished=false;
+            let cache=this.itemList.splice(index,1)[0];
+            this.itemList.unshift( {
+                'head':cache.head,
+                'detail':cache.detail,
+                'checked':cache.checked,
+                'finished':cache.finished
+            });
         }
     }
 })
